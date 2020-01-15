@@ -1,33 +1,54 @@
 HTC Vive
 
+tilt brush
 How does the app presents information to the user?
+-color palette on left hand and brush in right one
 How does the app allow the user to interact with it?
+-allows you to chose colors and brushes and paint in 3d and move through the 3d painting
 Do you feel immersed?  Why or why not?
+-quite well, thanks to the movement through sace
 Did you feel any negative physiological responses to using the application (e.g., nausea, headache, dizziness,...)?  If so, do was there something particular about the app that you think caused it?  Note: If you do feel these things you should stop using the headset for a bit and/or sit down while using them.
+-not in the short time I had with it
 What did the app do well, and what could be improved?
+-certain brushes looked bad from certain angles
 
 
 Oculus Quest
 
+superhot vr
 How does the app presents information to the user?
+-first person action game
 How does the app allow the user to interact with it?
+-you can pick up objects, weapons, throw stuff and dodge bullets
 Do you feel immersed?  Why or why not?
+-yes, as the movement through space was well tracked and also there were no cables
 Did you feel any negative physiological responses to using the application (e.g., nausea, headache, dizziness,...)?  If so, do was there something particular about the app that you think caused it?  Note: If you do feel these things you should stop using the headset for a bit and/or sit down while using them.
+-not in the short time I played with it
 What did the app do well, and what could be improved?
+-I only played the demo, I'd like to try the full version
 
 
 Oculus Go
 
+web browser
 How does the app presents information to the user?
+-you have a virtual screen and virtual keyboard
 How does the app allow the user to interact with it?
+-you aim at the keys
 Do you feel immersed?  Why or why not?
+-not so much, as the translation is not tracked and also the image gets distorted at sides because lenses cannot be adjusted
 Did you feel any negative physiological responses to using the application (e.g., nausea, headache, dizziness,...)?  If so, do was there something particular about the app that you think caused it?  Note: If you do feel these things you should stop using the headset for a bit and/or sit down while using them.
+-not in the short time I tried it
 What did the app do well, and what could be improved?
+-I mean it is a browser, it worked.
 
 
 How do think the limitation in degree of freedom of the devices impacted the effectiveness of the browser in the Oculus Go versus the other two systems?  
+-for the browser it wasnt as noticeable in the short run
 How do think the limitation in degree of freedom of the devices impacted the effectiveness of the starter Project 1 webpage in the Oculus Go versus the other two systems?  
+-it just felt way less immersive
 Suggest issues that might arise when developing VR applications that work on multiple different types of devices.
+-different degrees of freedom and different number of controllers/buttons on controllers to map actions onto
 -Each of those platforms offers different features - HTC Vive gives you more degrees of freedom and your app has to support movement, also given the target audience of the app you're developing the you might want to target specific headset that the audience is most likely to use.
 Suggest rationale for why developers might focus on devices like the Oculus Go rather than the HTC Vive.
 -easier to develop for because there are less degrees of freedom to account for, also the motion tracking is way simpler compared to vive. also it has better per-eye resolution which might make a big difference in certain apps
