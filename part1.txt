@@ -1,0 +1,33 @@
+HTC Vive
+
+How does the app presents information to the user?
+How does the app allow the user to interact with it?
+Do you feel immersed?  Why or why not?
+Did you feel any negative physiological responses to using the application (e.g., nausea, headache, dizziness,...)?  If so, do was there something particular about the app that you think caused it?  Note: If you do feel these things you should stop using the headset for a bit and/or sit down while using them.
+What did the app do well, and what could be improved?
+
+
+Oculus Quest
+
+How does the app presents information to the user?
+How does the app allow the user to interact with it?
+Do you feel immersed?  Why or why not?
+Did you feel any negative physiological responses to using the application (e.g., nausea, headache, dizziness,...)?  If so, do was there something particular about the app that you think caused it?  Note: If you do feel these things you should stop using the headset for a bit and/or sit down while using them.
+What did the app do well, and what could be improved?
+
+
+Oculus Go
+
+How does the app presents information to the user?
+How does the app allow the user to interact with it?
+Do you feel immersed?  Why or why not?
+Did you feel any negative physiological responses to using the application (e.g., nausea, headache, dizziness,...)?  If so, do was there something particular about the app that you think caused it?  Note: If you do feel these things you should stop using the headset for a bit and/or sit down while using them.
+What did the app do well, and what could be improved?
+
+
+How do think the limitation in degree of freedom of the devices impacted the effectiveness of the browser in the Oculus Go versus the other two systems?  
+How do think the limitation in degree of freedom of the devices impacted the effectiveness of the starter Project 1 webpage in the Oculus Go versus the other two systems?  
+Suggest issues that might arise when developing VR applications that work on multiple different types of devices.
+-Each of those platforms offers different features - HTC Vive gives you more degrees of freedom and your app has to support movement, also given the target audience of the app you're developing the you might want to target specific headset that the audience is most likely to use.
+Suggest rationale for why developers might focus on devices like the Oculus Go rather than the HTC Vive.
+-easier to develop for because there are less degrees of freedom to account for, also the motion tracking is way simpler compared to vive. also it has better per-eye resolution which might make a big difference in certain apps
