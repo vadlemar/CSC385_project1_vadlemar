@@ -18,3 +18,25 @@ What is the purpose of the "Watch" section above above the call stack in the deb
 
 I have been unable to determine how to translate (move left/right, up/down, forward/backwards) WebXR's emulated controllers or headset on systems have 6DOF.  Determine how, and then provide a description of how to do it.
 -change headset to htc vive, left bottom corner under the headset preview click rotate and it changes to translate mode, then you can move in space
+
+
+
+Lines 60-62 adds a point light in room, and Line 63 adds an ambient light to the room.  Experiment with commenting out the creation of one or both of these lights.  What happens?  Why do you think that is?
+Lines 69-71 effect the position of the boards.  Experiment with changing the values on the right hand sides of these lines.  Relative to original orientation of the camera which directions do the x-, y-, and z-axes point?
+The floating menu is created on Line 93.  If you wanted to create a new item on that menu what would you need to do?  What does the use of boards.map on the previous lines accomplish?
+When the user presses the trigger in VR, which function in this file is called first?  How would / did you determine this using the Chrome debugger?
+
+
+Inspect the constructor of the Board class. What are the member variables of the Board class?
+What line is responsible for making the board contain white in every cell at the beginning of the program.
+What does Line 114 accomplish?
+Explain the logic of the if statement conditions in Lines 169-193.
+As you saw above, Lines 69-71 of main.js effect the position of the board.  Which class does the Board class inherit the position member variable from?  Provide a hyperlink to the documentation of the three module for this class.
+Describe how would you refactor Board.js to include the contents of rasterizer.js instead of having it as a separate file.  (Don't actually do it though.)
+
+
+
+The Board class extends the GuiVR class.  What member variable does Board inherit that wasn't present from GuiVR that isn't in their parent class THREE.Group?  What is the purpose of this member variable?  
+Put a breakpoint a Line 13 of rasterizer.js.  Explain the call stack when this breakpoint is reached.
+What is an abstract class?  Why was GuiVR designed to be an abstract class?
+Extra Credit: What would be better documentation for the Board.collide function?  Make sure to discuss the parameter's types, meaning, and the function's overall behavior.
