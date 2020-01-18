@@ -62,7 +62,7 @@ export class Board extends GUIVR.GuiVR {
     	var loader = new THREE.FontLoader();
 	var current = this;
 	loader.load('../extern/fonts/helvetiker_bold.typeface.json', function (font){
-	    var textGeo = new THREE.TextBufferGeometry("Bresenham's Algorithm", {
+	    var textGeo = new THREE.TextBufferGeometry("   Martin's Algorithm", {
 		font: font,
 		size: 0.15,
 		height: 0.02,

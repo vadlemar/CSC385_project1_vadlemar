@@ -22,21 +22,72 @@ I have been unable to determine how to translate (move left/right, up/down, forw
 
 
 Lines 60-62 adds a point light in room, and Line 63 adds an ambient light to the room.  Experiment with commenting out the creation of one or both of these lights.  What happens?  Why do you think that is?
+-commenting main light hides the textures except for the main board that doesn't react to light, turning off the ambient light reduces the visibility of text
 Lines 69-71 effect the position of the boards.  Experiment with changing the values on the right hand sides of these lines.  Relative to original orientation of the camera which directions do the x-, y-, and z-axes point?
+-x+ moves each to the right, x- to the left (from perspective of the object, not user), +y upwards, -y downwards, -z away from user, +z towards user
 The floating menu is created on Line 93.  If you wanted to create a new item on that menu what would you need to do?  What does the use of boards.map on the previous lines accomplish?
+-add new button like 88-91, create new callback function that handles the event
 When the user presses the trigger in VR, which function in this file is called first?  How would / did you determine this using the Chrome debugger?
+-function onSelectStart(event), can be found in sources>global listeners
 
 
 Inspect the constructor of the Board class. What are the member variables of the Board class?
+    board: Board
+    eulerOrder: (...)
+    useQuaternion: (...)
+    uuid: "1F29F87E-F679-4857-B090-3C71E7839DD2"
+    name: ""
+    type: "Group"
+    parent: Scene {uuid: "7BB9E18C-FB50-4745-A2C6-FDD8CE5CD6FA", name: "", type: "Scene", parent: null, children: Array(11), …}
+    children: (2) [Mesh, Line]
+    up: Vector3 {x: 0, y: 1, z: 0}
+    position: Vector3 {x: 2.4492935982947064e-16, y: 1.6, z: 2}
+    rotation: Euler {_x: -3.141592653589793, _y: -1.2246467991473532e-16, _z: -3.141592653589793, _order: "XYZ", _onChangeCallback: ƒ}
+    quaternion: Quaternion {_x: 0, _y: 1, _z: 0, _w: -6.123233995736766e-17, _onChangeCallback: ƒ}
+    scale: Vector3 {x: 1, y: 1, z: 1}
+    matrix: Matrix4 {elements: Array(16)}
+    matrixWorld: Matrix4 {elements: Array(16)}
+    matrixAutoUpdate: true
+    matrixWorldNeedsUpdate: true
+    layers: Layers {mask: 1}
+    visible: true
+    castShadow: false
+    receiveShadow: false
+    frustumCulled: true
+    renderOrder: 0
+    userData: {}
+    collider: Mesh {uuid: "7199BAC5-66F2-44E4-B72A-AB5AF4452244", name: "", type: "Mesh", parent: Board, children: Array(0), …}
+    n: 15
+    stride: 15
+    dim: 226
+    ctx: CanvasRenderingContext2D {canvas: canvas, globalAlpha: 1, globalCompositeOperation: "source-over", filter: "none", imageSmoothingEnabled: true, …}
+    texture: CanvasTexture {uuid: "D0B03ECB-C954-4E7C-BE1B-CA2862DE7765", name: "", image: canvas, mipmaps: Array(0), mapping: 300, …}
+    clicks: []
+    editMode: 0
+    brushColor: Vector3 {x: 255, y: 0, z: 0}
+    guide: Line {uuid: "215C0000-5157-4B23-ACD0-C27558A2FB7A", name: "", type: "Line", parent: Board, children: Array(0), …}
+    id: 20
+    modelViewMatrix: Matrix4 {elements: Array(16)}
+    normalMatrix: Matrix3 {elements: Array(9)}
+    __proto__: GuiVR
+
 What line is responsible for making the board contain white in every cell at the beginning of the program.
+-board has method reset(), called in constructor at line 40
 What does Line 114 accomplish?
+-converts rgb to hex color code
 Explain the logic of the if statement conditions in Lines 169-193.
+-they look what draw mode we use and according to that call appropriate functions to rasterize input
 As you saw above, Lines 69-71 of main.js effect the position of the board.  Which class does the Board class inherit the position member variable from?  Provide a hyperlink to the documentation of the three module for this class.
+-object3d https://threejs.org/docs/#api/en/core/Object3D.position
 Describe how would you refactor Board.js to include the contents of rasterizer.js instead of having it as a separate file.  (Don't actually do it though.)
+-I would copypaste all the functions and import from debugconsole.js over there in board.js, someone might want to make static class for all the rasterizer things
 
 
 
 The Board class extends the GuiVR class.  What member variable does Board inherit that wasn't present from GuiVR that isn't in their parent class THREE.Group?  What is the purpose of this member variable?  
+-.collider, detects whether the click intersects with the board
 Put a breakpoint a Line 13 of rasterizer.js.  Explain the call stack when this breakpoint is reached.
+-onSelectStart calls guivr.intersectobjects, that detects the intersection callng collide, then the point is to be rasterized on the board so rasterizepoint is called to write the color and text onto the console
 What is an abstract class?  Why was GuiVR designed to be an abstract class?
+-abstract class is common prototype that groups classes with common variables, it can only be inherited from and cannot be created on it's own
 Extra Credit: What would be better documentation for the Board.collide function?  Make sure to discuss the parameter's types, meaning, and the function's overall behavior.
