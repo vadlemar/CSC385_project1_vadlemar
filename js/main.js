@@ -22,21 +22,28 @@ var tempMatrix = new THREE.Matrix4();
 function initRoom(){
 
     // Use canvas to create texture for holodeck-inspired walls.
-    var ctx = document.createElement('canvas').getContext('2d');
-    ctx.canvas.width = 512;
-    ctx.canvas.height = 512;
-    ctx.fillStyle = '#EDD400';
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(3, 3, ctx.canvas.width-6, ctx.canvas.height-6);
-    var wallTexture = new THREE.CanvasTexture(ctx.canvas);
-    wallTexture.wrapS = THREE.RepeatWrapping;
-    wallTexture.wrapT = THREE.RepeatWrapping;
-    wallTexture.magFilter = THREE.LinearFilter;
-    wallTexture.minFilter = THREE.LinearMipmapNearestFilter;
-    wallTexture.repeat.set(10, 10);
+    //old
+    //var ctx = document.createElement('canvas').getContext('2d');
+    //ctx.canvas.width = 512;
+    //ctx.canvas.height = 512;
+    //ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    //ctx.fillStyle = '#228C22';
+    //ctx.fillRect(3, 3, ctx.canvas.width-6, ctx.canvas.height-6);
+    //ctx.fillStyle = '#666666';
+    //var wallTexture = new THREE.CanvasTexture(ctx.canvas);
+    //wallTexture.wrapS = THREE.RepeatWrapping;
+    //wallTexture.wrapT = THREE.RepeatWrapping;
+    //end old
+
+    // load a texture, set wrap mode to repeat
+
     var wallMaterial = new THREE.MeshPhongMaterial();
-    wallMaterial.map = wallTexture;
+    wallMaterial.bumpMap = new THREE.TextureLoader().load( "textures/TexturesCom_StoneWall3_2x2_512_height.jpg" );
+    wallMaterial.normalMap = new THREE.TextureLoader().load( "textures/TexturesCom_StoneWall3_2x2_512_normal.jpg" );
+    wallMaterial.displacementMap = new THREE.TextureLoader().load( "textures/TexturesCom_StoneWall3_2x2_512_height.jpg" );
+    wallMaterial.displacementScale = 0.25;
+    wallMaterial.map = new THREE.TextureLoader().load( "textures/TexturesCom_StoneWall3_2x2_512_albedo.jpg" );
+    wallMaterial.shininess = 70;
 
     // Create the floor and ceiling.
     var floor = new THREE.Mesh(new THREE.PlaneBufferGeometry( 10, 10 ), wallMaterial);
@@ -66,9 +73,9 @@ function initRoom(){
     var boards = [];
     for (var i = 0; i < 4; i++){
 	var board = new BOARD.Board();
-	board.position.x = 0;
-	board.position.y = 1.6;
-	board.position.z = -2;
+	board.position.x = 0; //default 0
+	board.position.y = 1.6; //default 1.6
+	board.position.z = -2; //default -2
 	tempMatrix.makeRotationY(THREE.Math.degToRad(-i * 90));
 	board.applyMatrix(tempMatrix);
 	scene.add(board);
@@ -76,12 +83,17 @@ function initRoom(){
     }
         
     // Create debug console to right of board.
-    var debugConsole = new DebugConsole(2.5);
-    debugConsole.rotateY(THREE.Math.degToRad(-45));
-    debugConsole.position.x = 3;
-    debugConsole.position.y = 1.6;
-    debugConsole.position.z = -3;
-    scene.add(debugConsole);
+    for (var i = 0; i < 4; i++){
+        var debugConsole = new DebugConsole(2.5);
+        debugConsole.rotateY( THREE.Math.degToRad(-45));
+        debugConsole.position.x = 3;
+        debugConsole.position.y = 1.6;
+        debugConsole.position.z = -3;
+        tempMatrix.makeRotationY(THREE.Math.degToRad(-i * 90));
+        debugConsole.applyMatrix(tempMatrix);
+        scene.add(debugConsole);
+        }
+
     
     // Create menu buttons to attach to heads up display.
     var buttonList = [
@@ -90,10 +102,10 @@ function initRoom(){
 	new GUIVR.GuiVRButton("Green", 0, 0, 255, true, function(x){boards.map(b => b.setGreen(x));}),
 	new GUIVR.GuiVRButton("Blue", 0, 0, 255, true, function(x){boards.map(b => b.setBlue(x));})];
     gui = new GUIVR.GuiVRMenu(buttonList);
-    gui.rotation.y = -0.2;
+    gui.rotation.y = 0.2;
     gui.scale.x = 0.45;
     gui.scale.y = 0.45;
-    gui.position.x = 0.45;
+    gui.position.x = -0.75;
     gui.position.y = -0.45;
     gui.position.z = -1.5;
     scene.add(gui);

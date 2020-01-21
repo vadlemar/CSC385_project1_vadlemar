@@ -62,13 +62,13 @@ export class Board extends GUIVR.GuiVR {
     	var loader = new THREE.FontLoader();
 	var current = this;
 	loader.load('../extern/fonts/helvetiker_bold.typeface.json', function (font){
-	    var textGeo = new THREE.TextBufferGeometry("   Martin's Algorithm", {
+	    var textGeo = new THREE.TextBufferGeometry("Vadlejch's Algorithm", {
 		font: font,
-		size: 0.15,
+		size: 0.17,
 		height: 0.02,
 		curveSegments: 3,
 	    });
-	    var textMaterial = new THREE.MeshPhongMaterial({color: 0x729FCF, specular: 0x000000});
+	    var textMaterial = new THREE.MeshPhongMaterial({color: 0x95EBEC, specular: 0x000000});
 	    var debug_mesh = new THREE.Mesh(textGeo, textMaterial);
 	    debug_mesh.position.x = -1.15;
 	    debug_mesh.position.y = 1;
