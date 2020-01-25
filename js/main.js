@@ -106,7 +106,7 @@ function initRoom(){
     gui = new GUIVR.GuiVRMenu(buttonList);
     gui.rotation.y = 0.2;
     gui.scale.x = 0.45;
-    gui.scale.y = 0.45;
+    gui.scale.y = 0.4;
     gui.position.x = -0.75;
     gui.position.y = -0.45;
     gui.position.z = -1.5;
