@@ -100,7 +100,8 @@ function initRoom(){
 	new GUIVR.GuiVRButton("Edit Mode", 0, 0, 5, true, function(x){boards.map(b => b.setMode(x));}),
 	new GUIVR.GuiVRButton("Red", 255, 0, 255, true, function(x){boards.map(b => b.setRed(x));}),
 	new GUIVR.GuiVRButton("Green", 0, 0, 255, true, function(x){boards.map(b => b.setGreen(x));}),
-	new GUIVR.GuiVRButton("Blue", 0, 0, 255, true, function(x){boards.map(b => b.setBlue(x));})];
+	new GUIVR.GuiVRButton("Blue", 0, 0, 255, true, function(x){boards.map(b => b.setBlue(x));})
+    ];
     gui = new GUIVR.GuiVRMenu(buttonList);
     gui.rotation.y = 0.2;
     gui.scale.x = 0.45;

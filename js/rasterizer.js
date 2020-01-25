@@ -1,4 +1,4 @@
-// Author: ???
+// Author: Martin Vadlejch
 // CSC 385 Computer Graphics
 // Version: Winter 2020
 
@@ -20,7 +20,23 @@ export function rasterizePoint(board, point, color){
 // Implemented using Bresenham's Algorithm.
 export function rasterizeLine(board, point1, point2, color){
 
-    // Implement me!
+    var x0 = point1[0];
+    var y0 = point1[1];
+    var x1 = point2[0];
+    var y1 = point2[1];
+    var dx = Math.abs(x1 - x0);
+    var dy = Math.abs(y1 - y0);
+    var sx = (x0 < x1) ? 1 : -1;
+    var sy = (y0 < y1) ? 1 : -1;
+    var err = dx - dy;
+    while(true) {
+        board.writePixel(x0, y0, color);
+        debugWrite("writePixel(" + x0.toString() + ", " + y0.toString() + ")")
+        if ((x0 === x1) && (y0 === y1)) break;
+        var e2 = 2*err;
+        if (e2 > -dy) { err -= dy; x0  += sx; }
+        if (e2 < dx) { err += dx; y0  += sy; }
+    }
 
 }
 
@@ -30,7 +46,9 @@ export function rasterizeLine(board, point1, point2, color){
 // given as vec3.  Draws triangle between the points of the color.
 export function rasterizeTriangle(board, point1, point2, point3, color){
 
-    // Implement me!
+    rasterizeLine(board, point1, point2, color);
+    rasterizeLine(board, point2, point3, color);
+    rasterizeLine(board, point1, point3, color);
 
 }
 
@@ -39,7 +57,8 @@ export function rasterizeTriangle(board, point1, point2, point3, color){
 // color. Implemented using flood fill.
 export function rasterizeFilledTriangle(board, point1, point2, point3, color){
 
-    // Implement me!
+    rasterizeTriangle(board, point1, point2, point3, color);
+    
 
 }
 

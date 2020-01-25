@@ -81,11 +81,11 @@ export class Board extends GUIVR.GuiVR {
     // Getters and Setters.
     
     getHeight(){
-	return n;
+	return this.n; //fixed this
     }
     
     getWidth(){
-	return n;
+	return this.n; //fixed this
     }
 
     setRed(r){
