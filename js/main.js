@@ -100,7 +100,8 @@ function initRoom(){
 	new GUIVR.GuiVRButton("Edit Mode", 0, 0, 5, true, function(x){boards.map(b => b.setMode(x));}),
 	new GUIVR.GuiVRButton("Red", 255, 0, 255, true, function(x){boards.map(b => b.setRed(x));}),
 	new GUIVR.GuiVRButton("Green", 0, 0, 255, true, function(x){boards.map(b => b.setGreen(x));}),
-	new GUIVR.GuiVRButton("Blue", 0, 0, 255, true, function(x){boards.map(b => b.setBlue(x));})
+    new GUIVR.GuiVRButton("Blue", 0, 0, 255, true, function(x){boards.map(b => b.setBlue(x));}),
+	new GUIVR.GuiVRButton("Height", 1.6, 1, 3, false, function(x){camera.position.set(0,x,1);})
     ];
     gui = new GUIVR.GuiVRMenu(buttonList);
     gui.rotation.y = 0.2;
@@ -116,13 +117,14 @@ function init() {
 
     // Create a scene
     scene = new THREE.Scene();
-
-    // Create the contents of the room.
-    initRoom();
     
     // Create the main camera pointing at the board.
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 10);
     camera.position.set(0, 1.6, 1);
+
+    // Create the contents of the room.
+    initRoom();
+    
 
     // Set up renderer
     renderer = new THREE.WebGLRenderer({antialias: true});
