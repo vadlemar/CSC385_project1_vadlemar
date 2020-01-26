@@ -56,6 +56,68 @@ export function dot(A, B){
     return res;
 }
 
+
+function lineIntersect(x1,y1,x2,y2, x3,y3,x4,y4) {
+    var x=((x1*y2-y1*x2)*(x3-x4)-(x1-x2)*(x3*y4-y3*x4))/((x1-x2)*(y3-y4)-(y1-y2)*(x3-x4));
+    var y=((x1*y2-y1*x2)*(y3-y4)-(y1-y2)*(x3*y4-y3*x4))/((x1-x2)*(y3-y4)-(y1-y2)*(x3-x4));
+    if (isNaN(x)||isNaN(y)) {
+        return false;
+    } else {
+        if (x1>=x2) {
+            if (!(x2<=x&&x<=x1)) {return false;}
+        } else {
+            if (!(x1<=x&&x<=x2)) {return false;}
+        }
+        if (y1>=y2) {
+            if (!(y2<=y&&y<=y1)) {return false;}
+        } else {
+            if (!(y1<=y&&y<=y2)) {return false;}
+        }
+        if (x3>=x4) {
+            if (!(x4<=x&&x<=x3)) {return false;}
+        } else {
+            if (!(x3<=x&&x<=x4)) {return false;}
+        }
+        if (y3>=y4) {
+            if (!(y4<=y&&y<=y3)) {return false;}
+        } else {
+            if (!(y3<=y&&y<=y4)) {return false;}
+        }
+    }
+    return true;
+}
+
+function oddEvenTest(point, boundaries){
+    let counter = 0;
+    for(let i = 0; i < boundaries.length; i++){
+        if(lineIntersect(point[0], point[1],-42, -42, boundaries[i][0], boundaries[i][1], boundaries[(i+1)%7][0], boundaries[(i+1)%7][1] )){
+            counter += 1;
+        }
+    }
+    if(counter%2 == 0){
+        counter = 0;
+        for(let i = 0; i < boundaries.length; i++){
+            if(lineIntersect(point[0], point[1], 69, 69, boundaries[i][0], boundaries[i][1], boundaries[(i+1)%7][0], boundaries[(i+1)%7][1] )){
+                counter += 1;
+            }
+        }
+
+    }
+
+    if(counter%2 == 0){
+        counter = 0;
+        for(let i = 0; i < boundaries.length; i++){
+            if(lineIntersect(point[0], point[1], -42, 69, boundaries[i][0], boundaries[i][1], boundaries[(i+1)%7][0], boundaries[(i+1)%7][1] )){
+                counter += 1;
+            }
+        }
+
+    }
+    
+    return counter%2;
+}
+
+
 // Takes two points given as vec2 in pixel coordinates and a color
 // given as vec3.  Draws line between the points of the color.
 // Implemented using Bresenham's Algorithm.
@@ -183,6 +245,63 @@ function floodFill(board, point, bound0, bound1, bound2, color){
     }
 }
 
+function floodFillHeptagon(board, point, boundaries, color){
+    let x0 = point.x;
+    let y0 = point.y;
+    if( x0 > 0 ){ // give it 4 vectors instead, not the first vector2
+        if( oddEvenTest([x0-1, y0], boundaries) ){
+            if(log.isColored([x0-1, y0])){
+                
+            }
+            else{
+                log.color([x0-1, y0]);
+                rasterizePoint(board, [x0-1, y0], color);
+                floodFillHeptagon(board, new Vector2(x0-1, y0), boundaries, color);
+            }
+        }
+    }
+
+    if ( y0 > 0){    
+        if( oddEvenTest([x0, y0-1], boundaries) ){
+            if(log.isColored([x0, y0-1])){
+                
+            }
+            else{
+                log.color([x0, y0-1]);
+                rasterizePoint(board, [x0, y0-1], color);
+                floodFillHeptagon(board, new Vector2(x0, y0-1), boundaries, color);
+            }
+        }
+        
+    }
+    if( x0 < 14 ){
+        if( oddEvenTest([x0+1, y0], boundaries) ){
+            if(log.isColored([x0+1, y0])){
+                
+            }
+            else{
+                log.color([x0+1, y0]);
+                rasterizePoint(board, [x0+1, y0], color);
+                floodFillHeptagon(board, new Vector2(x0+1, y0), boundaries, color);
+            }
+        }
+    }
+
+    if ( y0 < 14 ){    
+        if( oddEvenTest([x0, y0+1], boundaries) ){
+            if(log.isColored([x0, y0+1])){
+                
+            }
+            else{
+                log.color([x0, y0+1]);
+                rasterizePoint(board, [x0, y0+1], color);
+                floodFillHeptagon(board, new Vector2(x0, y0+1), boundaries, color);
+            }
+        }
+        
+    }
+
+}
 // Takes three points given as vec2 in pixel coordinates and a color
 // as a vec3.  Draws a filled triangle between the points of the
 // color. Implemented using flood fill.
@@ -204,7 +323,17 @@ export function rasterizeFilledTriangle(board, point1, point2, point3, color){
 // point of the color.  Implemented using inside-outside test.
 export function rasterizeFilledSevengon(board, points, color){
 
-    // Extra Credit: Implement me!
+    log.clear();
+    rasterizeLine(board, points[0], points[1], color);
+    rasterizeLine(board, points[2], points[1], color);
+    rasterizeLine(board, points[2], points[3], color);
+    rasterizeLine(board, points[4], points[3], color);
+    rasterizeLine(board, points[4], points[5], color);
+    rasterizeLine(board, points[6], points[5], color);
+    rasterizeLine(board, points[6], points[0], color);
+    for( let i = 0; i < log.get().length; i++){
+        floodFillHeptagon(board, log.get()[i], points, color);
+    }
 
 }
 
