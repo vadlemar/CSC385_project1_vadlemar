@@ -36,6 +36,7 @@ export function rasterizePoint(board, point, color){
 //    *      a3 * b1 - a1 * b3,
 //    *      a1 * b2 - a2 * b1
 //    *    ]
+// we ony interpret the 2d vectors as 3d with zero Z coordinate, crossproduct is either negative or positive Z
 export function cross(A, B){
     let res = [ 0, 0, A[0]*B[1]-A[1]*B[0] ];
     return res;
@@ -84,11 +85,11 @@ export function rasterizeTriangle(board, point1, point2, point3, color){
 }
 
 function isOnTheSameSide(point0, point1, boundary0, boundary1){
-    let cross1 = cross([ boundary1.x - boundary0.x,  boundary1.y - boundary0.y],
-                        [ point0.x    - boundary0.x,     point0.y - boundary0.y] )  ;  //cp1 = CrossProduct(b-a, p1-a)
+    let cross1 = cross([ boundary1[0] - boundary0[0],  boundary1[1] - boundary0[1]],
+                        [ point0[0]    - boundary0[0],     point0[1] - boundary0[1]] )  ;  //cp1 = CrossProduct(b-a, p1-a)
 
-    let cross2 = cross([ boundary1.x - boundary0.x,  boundary1.y - boundary0.y],
-                        [ point1.x    - boundary0.x,     point1.y - boundary0.y] )  ;  //cp2 = CrossProduct(b-a, p2-a)
+    let cross2 = cross([ boundary1[0] - boundary0[0],  boundary1[1] - boundary0[1]],
+                        [ point1[0]    - boundary0[0],     point1[1] - boundary0[1]] )  ;  //cp2 = CrossProduct(b-a, p2-a)
 
     let res = dot(cross1, cross2);
     if(res >= 0){
@@ -119,26 +120,26 @@ function floodFill(board, point, bound0, bound1, bound2, color){
 
     
     if( x0 > 0 ){ // give it 4 vectors instead, not the first vector2
-        if( isInTriangle(new Vector2(x0-1, y0), bound0, bound1, bound2) ){
-            rasterizePoint(board, new Vector2(x0-1, y0), color);
+        if( isInTriangle([x0-1, y0], bound0, bound1, bound2) ){
+            rasterizePoint(board, [x0-1, y0], color);
         }
     }
 
     if ( y0 > 0){    
-        if( isInTriangle(new Vector2(x0, y0-1), bound0, bound1, bound2) ){
-            rasterizePoint(board, new Vector2(x0, y0-1), color);
+        if( isInTriangle([x0, y0-1], bound0, bound1, bound2) ){
+            rasterizePoint(board, [x0, y0-1], color);
         }
         
     }
     if( x0 < 14 ){
-        if( isInTriangle(new Vector2(x0+1, y0), bound0, bound1, bound2) ){
-            rasterizePoint(board, new Vector2(x0+1, y0), color);
+        if( isInTriangle([x0+1, y0], bound0, bound1, bound2) ){
+            rasterizePoint(board, [x0+1, y0], color);
         }
     }
 
     if ( y0 < 14 ){    
-        if( isInTriangle(new Vector2(x0, y0+1), bound0, bound1, bound2) ){
-            rasterizePoint(board, new Vector2(x0, y0+1), color);
+        if( isInTriangle([x0, y0+1], bound0, bound1, bound2) ){
+            rasterizePoint(board, [x0, y0+1], color);
         }
         
     }
