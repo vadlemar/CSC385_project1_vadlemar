@@ -6,18 +6,28 @@ import {debugWrite} from './DebugConsole.js';
 import { Vector2, Vector3 } from '../extern/three.module.js';
 
 // All points are integer pixel coordinates
+
+//this class stores pixels that were written and 
 class writeLog {
     constructor() {
       this.log = [];
+      this.colored = new Set();
     }
     add(item) {
       this.log.push(item);
     }
     clear(){
         this.log = [];
+        this.colored.clear();
     }
     get(){
         return this.log;
+    }
+    color(item){
+        this.colored.add(item.toString());
+    }
+    isColored(item){
+        return this.colored.has(item.toString());
     }
   }
 let log = new writeLog();
@@ -121,25 +131,53 @@ function floodFill(board, point, bound0, bound1, bound2, color){
     
     if( x0 > 0 ){ // give it 4 vectors instead, not the first vector2
         if( isInTriangle([x0-1, y0], bound0, bound1, bound2) ){
-            rasterizePoint(board, [x0-1, y0], color);
+            if(log.isColored([x0-1, y0])){
+                
+            }
+            else{
+                log.color([x0-1, y0]);
+                rasterizePoint(board, [x0-1, y0], color);
+                floodFill(board, new Vector2(x0-1, y0), bound0, bound1, bound2, color);
+            }
         }
     }
 
     if ( y0 > 0){    
         if( isInTriangle([x0, y0-1], bound0, bound1, bound2) ){
-            rasterizePoint(board, [x0, y0-1], color);
+            if(log.isColored([x0, y0-1])){
+                
+            }
+            else{
+                log.color([x0, y0-1]);
+                rasterizePoint(board, [x0, y0-1], color);
+                floodFill(board, new Vector2(x0, y0-1), bound0, bound1, bound2, color);
+            }
         }
         
     }
     if( x0 < 14 ){
         if( isInTriangle([x0+1, y0], bound0, bound1, bound2) ){
-            rasterizePoint(board, [x0+1, y0], color);
+            if(log.isColored([x0+1, y0])){
+                
+            }
+            else{
+                log.color([x0+1, y0]);
+                rasterizePoint(board, [x0+1, y0], color);
+                floodFill(board, new Vector2(x0+1, y0), bound0, bound1, bound2, color);
+            }
         }
     }
 
     if ( y0 < 14 ){    
         if( isInTriangle([x0, y0+1], bound0, bound1, bound2) ){
-            rasterizePoint(board, [x0, y0+1], color);
+            if(log.isColored([x0, y0+1])){
+                
+            }
+            else{
+                log.color([x0, y0+1]);
+                rasterizePoint(board, [x0, y0+1], color);
+                floodFill(board, new Vector2(x0, y0+1), bound0, bound1, bound2, color);
+            }
         }
         
     }
