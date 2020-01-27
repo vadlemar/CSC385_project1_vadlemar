@@ -51,12 +51,13 @@ export function cross(A, B){
     let res = [ 0, 0, A[0]*B[1]-A[1]*B[0] ];
     return res;
 }
+//dotproduct
 export function dot(A, B){
     let res = A[0]*B[0] + A[1]*B[1] + A[2]*B[2] ;
     return res;
 }
 
-
+//courtesy of stack overflow, very helpful
 function lineIntersect(x1,y1,x2,y2, x3,y3,x4,y4) {
     var x=((x1*y2-y1*x2)*(x3-x4)-(x1-x2)*(x3*y4-y3*x4))/((x1-x2)*(y3-y4)-(y1-y2)*(x3-x4));
     var y=((x1*y2-y1*x2)*(y3-y4)-(y1-y2)*(x3*y4-y3*x4))/((x1-x2)*(y3-y4)-(y1-y2)*(x3-x4));
@@ -87,6 +88,7 @@ function lineIntersect(x1,y1,x2,y2, x3,y3,x4,y4) {
     return true;
 }
 
+//used for the heptagon
 function oddEvenTest(point, boundaries){
     let counter = 0;
     for(let i = 0; i < boundaries.length; i++){
@@ -173,6 +175,7 @@ function isOnTheSameSide(point0, point1, boundary0, boundary1){
 
 }
 
+//self explanatory, 3 sides, if it is inside of all of them then it's inside triangle
 function isInTriangle(point, boundary0, boundary1, boundary2){
     if( isOnTheSameSide(point, boundary0, boundary1, boundary2) &
         isOnTheSameSide(point, boundary1, boundary2, boundary0) &
@@ -185,6 +188,7 @@ function isInTriangle(point, boundary0, boundary1, boundary2){
     }
 }
 
+//for triangles, with normal vectors for boundary check
 function floodFill(board, point, bound0, bound1, bound2, color){
     //[x0,y0] = point;
     let x0 = point.x;
@@ -245,6 +249,7 @@ function floodFill(board, point, bound0, bound1, bound2, color){
     }
 }
 
+//for polygons with odd even test
 function floodFillHeptagon(board, point, boundaries, color){
     let x0 = point.x;
     let y0 = point.y;
@@ -338,12 +343,48 @@ export function rasterizeFilledSevengon(board, points, color){
 }
 
 
+
+
+// we have no way of controlling the opacity of pixels and we have to do the lines
+// in color, which is not going to work because we can't just dim the AA'd pixels
+// we can either do a black line and shift them to grayscale accordingly, or
+// do a color shift for colors but that's not going to look like anything like antialiased line.
+
+
 // Takes two points given as vec2 in pixel coordinates and a color
 // given as vec3.  Draws an antialiased line between them of the
 // color.
+//
 export function rasterizeAntialiasLine(board, point1, point2, color){
 
     // Extra Credit: Implement me!
     // Remember to cite any sources you reference.
+    var x0 = point1[0];
+    var y0 = point1[1];
+    var x1 = point2[0];
+    var y1 = point2[1];
+    var dx = Math.abs(x1 - x0);
+    var dy = Math.abs(y1 - y0);
+    var sx = (x0 < x1) ? 1 : -1;
+    var sy = (y0 < y1) ? 1 : -1;
+    var err = dx - dy;
+    let tmp1, tmp2;
+    while(true) {
+        tmp1 = 0;
+        tmp2 = 0;
+        board.writePixel(x0, y0, color);
+        debugWrite("writePixel(" + x0.toString() + ", " + y0.toString() + ")");
+        log.add(new Vector2(x0,y0));
+        if ((x0 === x1) && (y0 === y1)) break;
+        var e2 = 2*err;
+        if (e2 > -dy) { err -= dy; x0  += sx; tmp1 = 1;}
+        if (e2 < dx) { err += dx; y0  += sy; tmp2 = 1;}
+        if( tmp2 & tmp1 ){
+            board.writePixel(x0, y0-sy, new Vector3((color.x+40)%255, (color.y+40)%255, (color.z+40)%255));
+            debugWrite("writePixel(" + (x0).toString() + ", " + (y0-sy).toString() + ")");
+            board.writePixel(x0-sx, y0, new Vector3((color.x+40)%255, (color.y+40)%255, (color.z+40)%255));
+            debugWrite("writePixel(" + (x0-sx).toString() + ", " + (y0).toString() + ")");
+        }
+    }
 
 }

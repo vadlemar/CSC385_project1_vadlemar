@@ -111,6 +111,20 @@ function initRoom(){
     gui.position.y = -0.45;
     gui.position.z = -1.5;
     scene.add(gui);
+
+
+    //sound
+    var listener = new THREE.AudioListener();
+    camera.add(listener);
+
+    var sound = new THREE.Audio(listener);
+    var audioLoader = new THREE.AudioLoader();
+    audioLoader.load( 'wind.ogg', function( buffer ) {
+        sound.setBuffer( buffer );
+        sound.setLoop( true );
+        sound.setVolume( 0.5 );
+        sound.play();});
+
 }
 
 function init() {
@@ -119,8 +133,9 @@ function init() {
     scene = new THREE.Scene();
     
     // Create the main camera pointing at the board.
-    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 10);
+    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 10);
     camera.position.set(0, 1.6, 1);
+    
 
     // Create the contents of the room.
     initRoom();
